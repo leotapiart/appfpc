@@ -1,0 +1,5 @@
+.bg-hover-primary:hover {
+  background-color: #007bff !important;
+  color: white;
+  cursor: pointer;
+}
