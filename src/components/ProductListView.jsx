@@ -3,10 +3,12 @@ import ExpirationForm from "./ExpirationForm";
 import SearchForm from "./SearchForm";
 import { csv } from "d3-fetch";
 import SearchResultsList from "./SearchResultsList";
+import ProductInfoTable from "./ProductInfoTable";
 
 const ProductListView = () => {
   const [data, setData] = useState([]);
   const [searchedSku, setSearchedSku] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
   const [showDropdown, setShowDropdown] = useState(true);
 
   useEffect(() => {
@@ -29,13 +31,29 @@ const ProductListView = () => {
     .filter((e) => e.articulo.toLowerCase().includes(searchedSku.toLowerCase()))
     .slice(0, 10);
 
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setShowDropdown(false);
+    setSearchedSku(item.articulo);
+  };
+
   return (
     <section>
-      <SearchForm searchedSku={searchedSku} setSearchedSku={setSearchedSku} />
+      <SearchForm
+        searchedSku={searchedSku}
+        setSearchedSku={setSearchedSku}
+        setShowDropdown={setShowDropdown}
+      />
       {/* <ExpirationForm /> */}
       {searchedSku && filteredData.length > 0 && showDropdown && (
-        <SearchResultsList filteredData={filteredData} />
+        <SearchResultsList
+          filteredData={filteredData}
+          handleSelectItem={handleSelectItem}
+        />
       )}
+      <article>
+        {selectedItem && <ProductInfoTable selectedItem={selectedItem} />}
+      </article>
     </section>
   );
 };
