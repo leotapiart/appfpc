@@ -1,8 +1,8 @@
-const ExpirationForm = () => {
+const ExpirationForm = ({ setSelectedDate }) => {
   return (
-    <article className="py-2 bg-light rounded-4">
-      <input type="date" value={10 - 12 - 2024} className="calendar" />
-    </article>
+    <section className="input-group flex-fill">
+      <input type="date" className="dateform form-control" onChange={(e) => setSelectedDate(e.target.value)} />
+    </section>
   );
 };
 

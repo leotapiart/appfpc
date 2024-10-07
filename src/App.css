@@ -3,3 +3,19 @@
   color: white;
   cursor: pointer;
 }
+
+.dateform {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #fff;
+}
+
+.dateform::placeholder {
+  color: blue;
+  font-style: italic;
+}
+
+.custom-date-width {
+  width: 12rem; /* Puedes ajustar el porcentaje o usar un valor fijo como '200px' */
+  min-width: 150px; /* Asegura un ancho mínimo adecuado */
+}
