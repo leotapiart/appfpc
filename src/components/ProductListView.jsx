@@ -5,10 +5,16 @@ import SearchResultsList from "./SearchResultsList";
 import ProductInfoTable from "./ProductInfoTable";
 import ExpirationForm from "./ExpirationForm";
 
-const ProductListView = ({ setSelectedDate }) => {
+const ProductListView = (props) => {
+  const {
+    setSelectedDate,
+    selectedDate,
+    selectedItem,
+    setSelectedItem,
+    setIsAnalyzed,
+  } = props;
   const [data, setData] = useState([]);
   const [searchedSku, setSearchedSku] = useState("");
-  const [selectedItem, setSelectedItem] = useState(null);
   const [showDropdown, setShowDropdown] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -50,14 +56,25 @@ const ProductListView = ({ setSelectedDate }) => {
   return (
     <article>
       {/* ----------------------COLUMNA DE BUSCADOR Y FECHA DE VENCIMIENTO  */}
-      <div className="container text-center">
+      <div className="text-center">
         <article className="row align-items-center">
-          <SearchForm searchedSku={searchedSku} setSearchedSku={setSearchedSku} setShowDropdown={setShowDropdown} />
+          <SearchForm
+            searchedSku={searchedSku}
+            setSearchedSku={setSearchedSku}
+            setShowDropdown={setShowDropdown}
+          />
 
           <article className="col-12 col-md-6">
             <section className=" flex-fill d-flex mb-3 gap-2">
-              <ExpirationForm setSelectedDate={setSelectedDate} />
-              <button type="button" className="btn btn-success">
+              <ExpirationForm
+                setSelectedDate={setSelectedDate}
+                selectedDate={selectedDate}
+              />
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={() => setIsAnalyzed(true)}
+              >
                 ANALIZAR
               </button>
             </section>
@@ -67,13 +84,20 @@ const ProductListView = ({ setSelectedDate }) => {
 
       {/* ---------------------- DROPDOWN QUE MUESTRA LA BUSQUEDA INTIME */}
       {searchedSku && filteredData.length > 0 && showDropdown && (
-        <SearchResultsList filteredData={filteredData} handleSelectItem={handleSelectItem} />
+        <SearchResultsList
+          filteredData={filteredData}
+          handleSelectItem={handleSelectItem}
+        />
       )}
 
       {/* ----------------------TABLA CON EL RESULTADO DE LA BUSQUEDA */}
       <section>
         {selectedItem && (
-          <ProductInfoTable selectedItem={selectedItem} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+          <ProductInfoTable
+            selectedItem={selectedItem}
+            isCollapsed={isCollapsed}
+            toggleCollapse={toggleCollapse}
+          />
         )}
       </section>
     </article>

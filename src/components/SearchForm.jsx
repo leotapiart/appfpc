@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const SearchForm = (props) => {
   const { searchedSku, setSearchedSku, setShowDropdown } = props;
 
