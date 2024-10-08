@@ -1,34 +1,33 @@
-const ProductToleranceTable = ({ selectedDate, selectedItem }) => {
-  const todayDate = new Date().toISOString().split("T")[0];
+import ProductAlert from "./ProductAlert";
 
-  const convertDateToDMY = (dateString) => {
-    // Asumimos que dateString está en formato YYYY-MM-DD
-    const [year, month, day] = dateString.split("-");
-    return `${day}-${month}-${year}`;
-  };
+const ProductToleranceTable = (props) => {
+  const { selectedDate, selectedItem, isAnalyzed } = props;
 
-  const substractDates = (dateStringA, dateStringB) => {
-    const [dayB, monthB, yearB] = dateStringB.split("-");
-    const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
-
-    // dateStringA ya está en formato YYYY-MM-DD, se puede usar directamente
-    const dateA = new Date(dateStringA);
-
-    //Calcular diferencia entre milisegundos
-    const differenceInTime = dateA.getTime() - dateB.getTime();
-
-    // Convertir la diferencia de milisegundos a días
-    const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
-
-    return `La diferencia es de ${differenceInDays} días y ${dateA} y ${dateB}`;
-  };
-
-  console.log(substractDates(selectedDate, todayDate));
+  const todayDateString = new Date().toISOString().split("T")[0]; // STRING FECHA DE HOY
+  const todayDate = new Date(todayDateString); // FECHA DE HOY
+  const expiryDate = new Date(selectedDate); // FECHA DE VENCIMIENTO
+  const millisecondsPerDay = 1000 * 60 * 60 * 24; // MILISEGUNDOS X DIA
+  const vuDays = selectedItem?.vuDias; // VIDA UTIL DEL PRODUCTO
+  const warehouseShipDays = selectedItem?.despachoBodegaDias; // DIAS DESPACHO BODEGA
+  const availableShelfLife = (expiryDate - todayDate) / millisecondsPerDay; // VIDA UTIL DISPONIBLE (DIAS)
+  const consumedShelfLife = vuDays - availableShelfLife; // VIDA UTIL CONSUMIDA (DIAS)
+  const consumedPercent = Math.round((consumedShelfLife / vuDays) * 100); // VIDA UTIL CONSUMIDA (%)
+  const availablePercent = Math.round((availableShelfLife / vuDays) * 100); // VIDA UTIL DISPONIBLE (%)
+  const lastDayShip = new Date(expiryDate.getTime() - warehouseShipDays * millisecondsPerDay);
+  const daysShip = (lastDayShip - todayDate) / millisecondsPerDay;
 
   return (
     <section className="mt-3">
-      {selectedDate}
-      {selectedItem && selectedItem.descripcion}
+      <div className="alert alert-secondary" role="alert">
+        Producto con <span className="fw-medium">{availableShelfLife} </span>días restantes de vida útil. Eso equivale al{" "}
+        <span className="fw-medium">{consumedPercent}</span> % vida útil consumida.
+      </div>
+      <ProductAlert variant={daysShip >= 30 ? "success" : daysShip >= 0 && daysShip < 30 ? "warning" : "danger"}>
+        <span className="fw-medium">{daysShip}</span> Días para despacho a tiendas.
+      </ProductAlert>
+      <ProductAlert variant={daysShip >= 30 ? "success" : daysShip >= 0 && daysShip < 30 ? "warning" : "danger"}>
+        Despachar antes del <span className="fw-medium">{lastDayShip.toLocaleDateString()}</span>.
+      </ProductAlert>
     </section>
   );
 };

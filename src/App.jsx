@@ -4,14 +4,9 @@ import "./App.css";
 import { useState } from "react";
 
 const App = () => {
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isAnalyzed, setIsAnalyzed] = useState(false);
-
-  console.log(isAnalyzed);
 
   return (
     <main className="bg-dark min-vh-100">
@@ -23,11 +18,7 @@ const App = () => {
           setSelectedItem={setSelectedItem}
           setIsAnalyzed={setIsAnalyzed}
         />
-        <ProductToleranceTable
-          selectedDate={selectedDate}
-          selectedItem={selectedItem}
-          isAnalyzed={isAnalyzed}
-        />
+        {selectedItem && isAnalyzed && <ProductToleranceTable selectedDate={selectedDate} selectedItem={selectedItem} />}
       </section>
     </main>
   );

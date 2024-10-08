@@ -1,13 +1,6 @@
 import { useState } from "react";
 
 const ProductInfoTable = ({ selectedItem, isCollapsed, toggleCollapse }) => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const handleClick = () => {
-    setIsVisible(!isVisible);
-    toggleCollapse();
-  };
-
   return (
     <>
       <div className={`collapse ${isCollapsed ? "show" : ""}`}>
@@ -65,8 +58,8 @@ const ProductInfoTable = ({ selectedItem, isCollapsed, toggleCollapse }) => {
         </table>
       </div>
       <div className="d-grid d-md-flex justify-content-md-end">
-        <button type="button" className="btn btn-primary btn-sm" onClick={handleClick}>
-          {isVisible ? "OCULTAR INFORMACIÓN" : "MOSTRAR INFORMACIÓN"}
+        <button type="button" className="btn btn-primary btn-sm" onClick={toggleCollapse}>
+          {isCollapsed ? "OCULTAR INFORMACIÓN" : "MOSTRAR INFORMACIÓN"}
         </button>
       </div>
     </>
