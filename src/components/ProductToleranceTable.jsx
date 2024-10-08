@@ -9,11 +9,13 @@ const ProductToleranceTable = (props) => {
   const millisecondsPerDay = 1000 * 60 * 60 * 24; // MILISEGUNDOS X DIA
   const vuDays = selectedItem?.vuDias; // VIDA UTIL DEL PRODUCTO
   const warehouseShipDays = selectedItem?.despachoBodegaDias; // DIAS DESPACHO BODEGA
+  const receptionStoreDays = selectedItem?.recepcionLocalDias; // DIAS DESPACHO BODEGA
   const availableShelfLife = (expiryDate - todayDate) / millisecondsPerDay; // VIDA UTIL DISPONIBLE (DIAS)
   const consumedShelfLife = vuDays - availableShelfLife; // VIDA UTIL CONSUMIDA (DIAS)
   const consumedPercent = Math.round((consumedShelfLife / vuDays) * 100); // VIDA UTIL CONSUMIDA (%)
   const availablePercent = Math.round((availableShelfLife / vuDays) * 100); // VIDA UTIL DISPONIBLE (%)
   const lastDayShip = new Date(expiryDate.getTime() - warehouseShipDays * millisecondsPerDay);
+  const lastDayStore = new Date(expiryDate.getTime() - receptionStoreDays * millisecondsPerDay);
   const daysShip = (lastDayShip - todayDate) / millisecondsPerDay;
 
   return (
@@ -26,7 +28,10 @@ const ProductToleranceTable = (props) => {
         <span className="fw-medium">{daysShip}</span> Días para despacho a tiendas.
       </ProductAlert>
       <ProductAlert variant={daysShip >= 30 ? "success" : daysShip >= 0 && daysShip < 30 ? "warning" : "danger"}>
-        Despachar antes del <span className="fw-medium">{lastDayShip.toLocaleDateString()}</span>.
+        Despachar antes del <span className="fw-medium">{lastDayShip.toLocaleDateString()}</span>
+      </ProductAlert>
+      <ProductAlert variant={daysShip >= 30 ? "success" : daysShip >= 0 && daysShip < 30 ? "warning" : "danger"}>
+        Recepción en locales hasta <span className="fw-medium">{lastDayStore.toLocaleDateString()}</span>
       </ProductAlert>
     </section>
   );

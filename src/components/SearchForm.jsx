@@ -7,7 +7,7 @@ const SearchForm = (props) => {
         <input
           type="text"
           className="form-control"
-          placeholder="INGRESE SKU"
+          placeholder="INGRESE CÓDIGO SAP Y VENCIMIENTO"
           aria-label="Ingrese código SAP"
           value={searchedSku}
           onChange={(e) => {

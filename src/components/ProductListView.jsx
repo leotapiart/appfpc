@@ -26,6 +26,7 @@ const ProductListView = (props) => {
       aceptBodegaDias: d.ABdias,
       aceptBodegaPorcentaje: d.ABporcentaje,
       despachoBodegaDias: d.DBdias,
+      recepcionLocalDias: d.RLdias,
     })).then(setData);
   }, []);
 
