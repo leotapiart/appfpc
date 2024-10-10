@@ -4,6 +4,11 @@
   cursor: pointer;
 }
 
+.bg-gradient-custom {
+  background: rgb(2,0,36);
+  background: linear-gradient(330deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 30%, rgba(0,212,255,1) 100%);
+}
+
 .dateform {
   padding: 6px;
   border-radius: 6px;

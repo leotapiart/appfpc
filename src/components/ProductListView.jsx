@@ -68,7 +68,7 @@ const ProductListView = (props) => {
           <article className="col-12 col-md-6">
             <section className=" flex-fill d-flex mb-3 gap-2">
               <ExpirationForm setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
-              <button type="button" className="btn btn-success" onClick={handleAnalyzeClick}>
+              <button type="button" className="btn btn-warning" onClick={handleAnalyzeClick}>
                 ANALIZAR
               </button>
             </section>

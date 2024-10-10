@@ -9,8 +9,8 @@ const App = () => {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
 
   return (
-    <main className="bg-dark min-vh-100 align-items-center">
-      <h2 className="text-info text-center pt-2">VALIDADOR DE VIDA UTIL ❄️</h2>
+    <main className="bg-gradient-custom min-vh-100 align-items-center">
+      <h2 className="text-light text-center pt-2">VALIDADOR DE VIDA UTIL ❄️</h2>
       <section className="container text-light py-1 flex ">
         <ProductListView
           setSelectedDate={setSelectedDate}

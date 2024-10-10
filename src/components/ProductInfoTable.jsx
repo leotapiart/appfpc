@@ -58,7 +58,7 @@ const ProductInfoTable = ({ selectedItem, isCollapsed, toggleCollapse }) => {
         </table>
       </div>
       <div className="d-grid d-md-flex justify-content-md-end">
-        <button type="button" className="btn btn-primary btn-sm" onClick={toggleCollapse}>
+        <button type="button" className="btn btn-sm p-0 bg-info" onClick={toggleCollapse}>
           {isCollapsed ? "OCULTAR INFORMACIÓN" : "MOSTRAR INFORMACIÓN"}
         </button>
       </div>
