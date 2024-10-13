@@ -5,11 +5,18 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
-        "/",
-        "/index.html",
-        "/src/main.js",
-        "/src/App.css", // Si tienes un archivo CSS principal
-        // Agrega aquí otros recursos necesarios
+        "/", // Ruta raíz
+        "/index.html", // Archivo HTML principal
+        "/manifest.json", // Manifesto
+        "/favicon.png", // Icono de la aplicación
+        "/src/main.jsx", // Archivo principal de tu aplicación
+        "/src/components/SearchForm.jsx",
+        "/src/components/SearchResultsList.jsx",
+        "/src/components/ProductInfoTable.jsx",
+        "/src/components/ExpirationForm.jsx",
+        "/src/components/ProductAlert.jsx", // Incluye los demás componentes utilizados
+        "/src/App.css", // Archivo de estilos
+        "/src/utils/indexedDB.js", // Archivo IndexedDB
       ]);
     })
   );
